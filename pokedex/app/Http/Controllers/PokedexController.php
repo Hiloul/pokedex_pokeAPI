@@ -6,6 +6,12 @@ use Illuminate\Http\Request;
 
 class PokedexController extends Controller
 {
+    public function tableau(){ $pokedex=[
+        'Bulbizarre' => [ 'type' => 'Plante', 'attaque' => 49, 'defense' => 49, 'pv' => 45, ], 
+        'Salamèche' => [ 'type' => 'Feu', 'attaque' => 52, 'defense' => 43, 'pv' => 39, ], 
+        'Carapuce' => [ 'type' => 'Eau', 'attaque' => 48, 'defense' => 65, 'pv' => 44, ]
+                                        ];
+                             }
     
 //7 Route
 public function index(){
