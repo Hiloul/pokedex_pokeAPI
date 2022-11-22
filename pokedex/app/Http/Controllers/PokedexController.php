@@ -129,36 +129,38 @@ public function edit($pokemon){
     if ($newPokemon){
         $html .= '<div>';
         $html .= '<h2>Modification de Pokemon</h2>';
-        $html .= '<form  " method="post">';
-        $html .= '<label for="" >Nom:
-                        <input type="text" name="nom">
+        $html .= '<form action="/pokemons/'.$pokemon.'" method="post">
+                    <input name="_method" type="hidden" value="PUT">
+                    <label for="" >Nom:
+                        <input type="text" name="nom" value="'.$pokemon.'">
                     </label>
                     <p>
                     <label for="">Type: 
-                        <input type="text" name="type">
+                        <input type="text" name="type" value="'.$this->pokedex[$pokemon]['type'].'">
                     </label>
                     </p>
                     <p>
                     <label for="">Attaque: 
-                        <input type="number" name="attaque">
+                        <input type="number" name="attaque" value="'.$this->pokedex[$pokemon]['attaque'].'">
                     </label>
                     </p>
                     <p>
                     <label for="">Défense: 
-                        <input type="number" name="defense">
+                        <input type="number" name="defense" value="'.$this->pokedex[$pokemon]['defense'].'">
                     </label>
                     </p>
                     <p>
                     <label for="">PV:
-                        <input type="number" name="pv">
+                        <input type="number" name="pv" value="'.$this->pokedex[$pokemon]['pv'].'" >
                     </label>
                     </p>
-                    <input type="submit" value="soumettre" name="submit">
+                    <input type="submit" value="soumettre" >
                 </form> 
-                <form action="/pokemons" method="delete">
-    <label for="">Supprimer le pokemon</label>
-    <input type="submit" name="submit">
-</form>';
+                <form action="/pokemons/'.$pokemon.'" method="post">
+                <input name="_method" type="hidden" value="delete">
+                <label for="">Supprimer le pokemon</label>
+                <input type="submit" value="Supprimer">
+                </form>';
         $html .= '</div>';
         return response($html, 200)->header('Content-Type', 'text/html');
     } else{
@@ -197,13 +199,15 @@ public function destroy($pokemon){
     //Retourne un message HTML de confirmation et le nom du pokemon 
     //supprimé (même si le pokemon n'est pas réellement supprimé)
     $newPokemon = isset($this->pokedex[$pokemon]);
+
     if ($newPokemon){
         
-        return response("Il existe", 200)->header('Content-Type', 'text/html');
+        return response($pokemon." supprimé", 200)->header('Content-Type', 'text/html');
     } else{
 
         return response("Erreur ce pokemon n'existe pas ", 404)->header('Content-Type', 'text/html');
     }
+
 
 }    
 }
