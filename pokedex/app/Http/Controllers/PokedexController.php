@@ -40,30 +40,30 @@ public function create(){
     $html .= '<div>';
     $html .= '<h2>Création de Pokemon</h2>';
     $html .= '<form action="/pokemons" method="post">';
-    $html .= '<label for="">Nom:
-                    <input type="text">
+    $html .= '<label for="" >Nom:
+                    <input type="text" name="nom">
                 </label>
                 <p>
                 <label for="">Type: 
-                    <input type="text">
+                    <input type="text" name="type">
                 </label>
                 </p>
                 <p>
                 <label for="">Attaque: 
-                    <input type="number">
+                    <input type="number" name="attaque">
                 </label>
                 </p>
                 <p>
                 <label for="">Défense: 
-                    <input type="number">
+                    <input type="number" name="defense">
                 </label>
                 </p>
                 <p>
                 <label for="">PV:
-                    <input type="number">
+                    <input type="number" name="pv">
                 </label>
                 </p>
-                <input type="submit" value="soumettre">
+                <input type="submit" value="soumettre" name="submit">
             </form> ';
     $html .= '</div>';
     
@@ -71,17 +71,45 @@ public function create(){
 
 }
 
-public function store(){
+public function store(Request $request){
     //Vérifie que le nom, l'attaque, la défense et les PV sont bien 
     //reçus depuis le body de la requête
     //Retourne un message HTML de confirmation et un récapitualitf du 
     //pokemon créé (même si le pokemon n'est pas réellement enregistré)
+    
+    $name=$request->input('nom');
+    $type=$request->input('type');
+    $attaque=$request->input('attaque');
+    $defense=$request->input('defense');
+    $pv=$request->input('pv');
+    $submit=$request->input('submit');
+    $html="";
+    // var_dump($name);
+    // var_dump($type);
+    // var_dump($attaque);
+    // var_dump($defense);
+    // var_dump($pv);
+if($submit && $name && $type && $attaque && $defense && $pv){
+    $html .= '<div>';
+    $html .= '<h1>Félicitations ! Vous avez crée un Pokemon</h1>';
+    $html .= '<h2>Nom: '.$name.'</h2>';
+    $html .= '<ul>';
+    $html .= '<li> Type: '.$type.'</li>';
+    $html .= '<li>Attaque: '.$attaque.'</li>';
+    $html .= '<li>Défense: '.$defense.'</li>';
+    $html .= '<li>PV: '.$pv.'</li>';
+    $html .= '<ul>';
+    $html .= '</div>';
 
+}
+    return response($html, 200)->header('Content-Type', 'text/html');
 }
 
 public function show($pokemon){
     //	Retourne en HTML les détails d'un pokemon s'il existe dans 
     //le tableau pokedex sinon retourne un message d'erreur et un code HTTP 404
+    $html='';
+    return response($html, 200)->header('Content-Type', 'text/html');
 
 }
 
