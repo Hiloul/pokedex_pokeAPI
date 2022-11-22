@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 class PokedexController extends Controller
 {
+    //attribut
     protected $pokedex=[
         'Bulbizarre' => [ 'type' => 'Plante', 'attaque' => 49, 'defense' => 49, 'pv' => 45, ], 
         'Salamèche' => [ 'type' => 'Feu', 'attaque' => 52, 'defense' => 43, 'pv' => 39, ], 
@@ -108,16 +109,67 @@ if($submit && $name && $type && $attaque && $defense && $pv){
 public function show($pokemon){
     //	Retourne en HTML les détails d'un pokemon s'il existe dans 
     //le tableau pokedex sinon retourne un message d'erreur et un code HTTP 404
-    $html='';
-    return response($html, 200)->header('Content-Type', 'text/html');
+    $newPokemon = isset($this->pokedex[$pokemon]);
 
+    if ($newPokemon){
+        
+        return response($this->pokedex[$pokemon], 200)->header('Content-Type', 'text/html');
+    } else{
+
+        return response("Erreur ce pokemon n'existe pas ", 404)->header('Content-Type', 'text/html');
+    }
 }
 
 public function edit($pokemon){
-
     //	Retourne un formulaire HTML permettant de modifier les informations 
     //d'un pokemon (pré-repmpli avec les informations existantes). 
     //Si le pokemon n'existe pas dans le tableau, retourne un message d'erreur et un code HTTP 404
+    $newPokemon = isset($this->pokedex[$pokemon]);
+    $html='';
+    if ($newPokemon){
+        $html .= '<div>';
+        $html .= '<h2>Modification de Pokemon</h2>';
+        $html .= '<form  " method="post">';
+        $html .= '<label for="" >Nom:
+                        <input type="text" name="nom">
+                    </label>
+                    <p>
+                    <label for="">Type: 
+                        <input type="text" name="type">
+                    </label>
+                    </p>
+                    <p>
+                    <label for="">Attaque: 
+                        <input type="number" name="attaque">
+                    </label>
+                    </p>
+                    <p>
+                    <label for="">Défense: 
+                        <input type="number" name="defense">
+                    </label>
+                    </p>
+                    <p>
+                    <label for="">PV:
+                        <input type="number" name="pv">
+                    </label>
+                    </p>
+                    <input type="submit" value="soumettre" name="submit">
+                </form> 
+                <form action="/pokemons" method="delete">
+    <label for="">Supprimer le pokemon</label>
+    <input type="submit" name="submit">
+</form>';
+        $html .= '</div>';
+        return response($html, 200)->header('Content-Type', 'text/html');
+    } else{
+
+        return response("Erreur ce pokemon n'existe pas ", 404)->header('Content-Type', 'text/html');
+    }
+   
+   
+
+
+   
 }
 
 public function update($pokemon){
@@ -127,18 +179,31 @@ public function update($pokemon){
     //reçus depuis le body de la requête
     //Retourne un message HTML de confirmation et un récapitualitf du 
     //pokemon modifié (même si le pokemon n'est pas réellement enregistré)
+    $newPokemon = isset($this->pokedex[$pokemon]);
+
+    if ($newPokemon){
+        
+        return response($this->pokedex[$pokemon], 200)->header('Content-Type', 'text/html');
+    } else{
+
+        return response("Erreur ce pokemon n'existe pas ", 404)->header('Content-Type', 'text/html');
+    }
 
 }
 
 public function destroy($pokemon){
-
     //Vérifie que le nom du pokemon existe bien dans le tableau pokedex 
     //sinon retourne un message d'erreur HTML et un code HTTP 404
     //Retourne un message HTML de confirmation et le nom du pokemon 
     //supprimé (même si le pokemon n'est pas réellement supprimé)
+    $newPokemon = isset($this->pokedex[$pokemon]);
+    if ($newPokemon){
+        
+        return response("Il existe", 200)->header('Content-Type', 'text/html');
+    } else{
 
-}
+        return response("Erreur ce pokemon n'existe pas ", 404)->header('Content-Type', 'text/html');
+    }
 
-
-    
+}    
 }
