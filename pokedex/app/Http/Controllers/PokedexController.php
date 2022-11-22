@@ -13,7 +13,7 @@ class PokedexController extends Controller
                                         ];
                              }
     
-//7 Route
+    //7 Route
 public function index(){
     //Retourne une liste HTML des pokémons du pokedex
 
@@ -28,8 +28,8 @@ public function create(){
 public function store(){
     //Vérifie que le nom, l'attaque, la défense et les PV sont bien 
     //reçus depuis le body de la requête
-//Retourne un message HTML de confirmation et un récapitualitf du 
-//pokemon créé (même si le pokemon n'est pas réellement enregistré)
+    //Retourne un message HTML de confirmation et un récapitualitf du 
+    //pokemon créé (même si le pokemon n'est pas réellement enregistré)
 
 }
 
